@@ -4,7 +4,7 @@ using namespace pandemic;
 
 Board::Board()
 {
-    for (auto &p : color_by_city)
+    for (const auto &p : color_by_city)
     {
         _cubes[p.first] = 0;
     }
@@ -12,7 +12,7 @@ Board::Board()
 
 bool Board::is_clean()
 {
-    for (auto &p : _cubes)
+    for (const auto &p : _cubes)
     {
         if (p.second != 0)
         {
@@ -41,13 +41,13 @@ ostream &pandemic::operator<<(ostream &os, const Board &b)
 {
     os << "Board Status:\n\n";
     os << "\tDiscovered Cures: ";
-    for (auto &e : b._cured)
+    for (const auto &e : b._cured)
     {
         os << color_text(e) << get_color(e) << RESET << " ";
     }
     os << "\n"
        << endl;
-    for (auto &p : b._cubes)
+    for (const auto &p : b._cubes)
     {
         os << "\tCity: " << get_city(p.first) << ", " << color_the_city(p.first) << get_color(color_by_city.at(p.first)) << RESET << "\n\t\tDisease level " << p.second << endl;
         os << boolalpha << "\t\tResearch Station Exists: " << b._stations.contains(p.first) << "\n"

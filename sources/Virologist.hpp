@@ -10,6 +10,7 @@ namespace pandemic
     {
     public:
         Virologist(Board &b, City c) : Player(b, c, "Virologist"){};
+        ~Virologist(){};
         virtual Player &treat(City c);
     };
 }

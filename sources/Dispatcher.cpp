@@ -12,10 +12,10 @@ Player &Dispatcher::fly_direct(City c)
     if (_board.get_stations().contains(_city))
     {
         _city = c;
-        return *this;
     }
     else
     {
         return Player::fly_direct(c);
     }
+    return *this;
 }

@@ -14,6 +14,7 @@ namespace pandemic
                 _board.get_cubes()[c] = 0;
             }
         };
+        ~Medic(){};
         Player &drive(City c);
         Player &fly_direct(City c);
         Player &fly_charter(City c);

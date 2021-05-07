@@ -10,6 +10,7 @@ namespace pandemic
     {
     public:
         Researcher(Board &b, City c) : Player(b, c, "Researcher"){};
+        ~Researcher(){};
         virtual Player &discover_cure(Color c);
     };
 }

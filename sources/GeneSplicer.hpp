@@ -10,6 +10,7 @@ namespace pandemic
     {
     public:
         GeneSplicer(Board &b, City c) : Player(b, c, "GeneSplicer"){};
+        ~GeneSplicer(){};
         virtual Player &discover_cure(Color c);
     };
 }

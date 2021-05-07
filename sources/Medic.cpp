@@ -9,8 +9,8 @@ Player &Medic::drive(City c)
     {
         throw std::invalid_argument("Not allowed! already in " + get_city(_city));
     }
-    bool flag = _board.get_adj()[_city].contains(c);
-    if (flag && _board.get_cured().contains(_board.get_city_color(c)))
+    bool flag = Board::get_adj()[_city].contains(c);
+    if (flag && _board.get_cured().contains(Board::get_city_color(c)))
     {
         _board.set_cubes(c, 0);
     }
@@ -24,7 +24,7 @@ Player &Medic::fly_direct(City c)
         throw std::invalid_argument("Not allowed! already in " + get_city(_city));
     }
     bool flag = _cards.contains(c);
-    if (flag && _board.get_cured().contains(_board.get_city_color(c)))
+    if (flag && _board.get_cured().contains(Board::get_city_color(c)))
     {
         _board.set_cubes(c, 0);
     }
@@ -38,7 +38,7 @@ Player &Medic::fly_charter(City c)
         throw std::invalid_argument("Not allowed! already in " + get_city(_city));
     }
     bool flag = _cards.contains(_city);
-    if (flag && _board.get_cured().contains(_board.get_city_color(c)))
+    if (flag && _board.get_cured().contains(Board::get_city_color(c)))
     {
         _board.set_cubes(c, 0);
     }
@@ -52,7 +52,7 @@ Player &Medic::fly_shuttle(City c)
         throw std::invalid_argument("Not allowed! already in " + get_city(_city));
     }
     bool flag = _board.get_stations().contains(_city) && _board.get_stations().contains(c);
-    if (flag && _board.get_cured().contains(_board.get_city_color(c)))
+    if (flag && _board.get_cured().contains(Board::get_city_color(c)))
     {
         _board.set_cubes(c, 0);
     }
@@ -61,14 +61,12 @@ Player &Medic::fly_shuttle(City c)
 
 Player &Medic::treat(City c)
 {
-    Color col = _board.get_city_color(c);
+    Color col = Board::get_city_color(c);
     if (!_board.get_cured().contains(col))
     {
         if (_board.get_cubes().at(c) != 0)
         {
             _board.set_cubes(c, 0);
-
-            return *this;
         }
         else
         {
@@ -82,6 +80,6 @@ Player &Medic::treat(City c)
     else
     {
         _board.set_cubes(c, 0);
-        return *this;
     }
+    return *this;
 }

@@ -5,6 +5,7 @@
 
 namespace pandemic
 {
+    const int FIVE = 5;
 
     class Player
     {
@@ -16,6 +17,7 @@ namespace pandemic
 
     public:
         Player(Board &b, City c, std::string r = "Player") : _role(r), _board(b), _city(c){};
+        ~Player(){};
         Player &take_card(City c);
         Player &remove_cards();
         virtual Player &drive(City c, bool flag = false);

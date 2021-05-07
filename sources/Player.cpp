@@ -21,7 +21,7 @@ Player &Player::drive(City c, bool flag)
     {
         throw std::invalid_argument("Not allowed! already in " + get_city(_city));
     }
-    if (flag || _board.get_adj()[_city].contains(c))
+    if (flag || Board::get_adj()[_city].contains(c))
     {
         _city = c;
     }
@@ -61,7 +61,7 @@ Player &Player::fly_shuttle(City c)
 
         throw std::invalid_argument("City of " + get_city(c) + " has no Research Station");
     }
-    else if (!_board.get_stations().contains(_city))
+    if (!_board.get_stations().contains(_city))
     {
         throw std::invalid_argument("City of " + get_city(_city) + " has no Research Station");
     }
@@ -109,41 +109,39 @@ Player &Player::discover_cure(Color c)
 {
     if (!_board.get_cured().contains(c))
     {
-        if (_board.get_stations().contains(_city))
-        {
-
-            int cntr = 0;
-            set<City> to_erase;
-            for (City ct : _cards)
-            {
-                if (_board.get_city_color(ct) == c)
-                {
-                    cntr++;
-                    to_erase.insert(ct);
-                }
-                if (cntr >= 5)
-                {
-                    _board.set_cured(c);
-                    for (City rmv : to_erase)
-                    {
-                        _cards.erase(rmv);
-                    }
-                    return *this;
-                }
-            }
-            throw std::invalid_argument("Insufficient cards of Color " + get_color(c));
-        }
-        else
+        if (!_board.get_stations().contains(_city))
         {
             throw std::invalid_argument("No research station in " + get_city(_city));
         }
+
+        int cntr = 0;
+        set<City> to_erase;
+        for (City ct : _cards)
+        {
+            if (Board::get_city_color(ct) == c)
+            {
+                cntr++;
+                to_erase.insert(ct);
+            }
+            if (cntr >= FIVE)
+            {
+                _board.set_cured(c);
+                for (City rmv : to_erase)
+                {
+                    _cards.erase(rmv);
+                }
+                return *this;
+            }
+        }
+        throw std::invalid_argument("Insufficient cards of Color " + get_color(c));
     }
+
     return *this;
 }
 
 Player &Player::treat(City c)
 {
-    Color col = _board.get_city_color(c);
+    Color col = Board::get_city_color(c);
     if (!_board.get_cured().contains(col))
     {
         if (_board[c] != 0 && _city == c)
@@ -151,22 +149,17 @@ Player &Player::treat(City c)
             _board.set_cubes(c, _board[c] - 1);
             return *this;
         }
-        else if (_city == c)
+        if (_city == c)
         {
             throw std::invalid_argument("Not allowed! City of " + get_city(c) + " is clear");
         }
-        else
-        {
-            throw std::invalid_argument("Not allowed! Not in " + get_city(c));
-        }
+        throw std::invalid_argument("Not allowed! Not in " + get_city(c));
     }
-    else if (_board.get_cubes().at(c) == 0)
+    if (_board.get_cubes().at(c) == 0)
     {
         throw std::invalid_argument("Not allowed! City of " + get_city(c) + " is clear");
     }
-    else
-    {
-        _board.set_cubes(c, 0);
-        return *this;
-    }
+
+    _board.set_cubes(c, 0);
+    return *this;
 }

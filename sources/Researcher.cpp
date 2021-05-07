@@ -12,12 +12,12 @@ Player &Researcher::discover_cure(Color c)
         set<City> to_erase;
         for (City ct : _cards)
         {
-            if (_board.get_city_color(ct) == c)
+            if (Board::get_city_color(ct) == c)
             {
                 cntr++;
                 to_erase.insert(ct);
             }
-            if (cntr == 5)
+            if (cntr == FIVE)
             {
                 _board.set_cured(c);
                 for (City rmv : to_erase)
