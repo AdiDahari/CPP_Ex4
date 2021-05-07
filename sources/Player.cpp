@@ -17,6 +17,10 @@ Player &Player::remove_cards()
 
 Player &Player::drive(City c, bool flag)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     if (flag || _board.get_adj()[_city].contains(c))
     {
         _city = c;
@@ -30,6 +34,10 @@ Player &Player::drive(City c, bool flag)
 
 Player &Player::fly_charter(City c, bool flag)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     if (flag || _cards.contains(_city))
     {
         _cards.extract(_city);
@@ -44,6 +52,10 @@ Player &Player::fly_charter(City c, bool flag)
 
 Player &Player::fly_shuttle(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     if (!_board.get_stations().contains(c))
     {
 
@@ -59,6 +71,10 @@ Player &Player::fly_shuttle(City c)
 
 Player &Player::fly_direct(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     if (_cards.contains(c))
     {
         _cards.extract(c);

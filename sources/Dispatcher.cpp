@@ -5,7 +5,10 @@ using namespace pandemic;
 
 Player &Dispatcher::fly_direct(City c)
 {
-    // cout << "city: " << get_city(_city) << ". station: " << boolalpha << _board.get_stations().contains(_city) << endl;
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     if (_board.get_stations().contains(_city))
     {
         _city = c;

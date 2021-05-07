@@ -5,6 +5,10 @@ using namespace pandemic;
 
 Player &Medic::drive(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     bool flag = _board.get_adj()[_city].contains(c);
     if (flag && _board.get_cured().contains(_board.get_city_color(c)))
     {
@@ -15,6 +19,10 @@ Player &Medic::drive(City c)
 
 Player &Medic::fly_direct(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     bool flag = _cards.contains(c);
     if (flag && _board.get_cured().contains(_board.get_city_color(c)))
     {
@@ -25,6 +33,10 @@ Player &Medic::fly_direct(City c)
 
 Player &Medic::fly_charter(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     bool flag = _cards.contains(_city);
     if (flag && _board.get_cured().contains(_board.get_city_color(c)))
     {
@@ -35,6 +47,10 @@ Player &Medic::fly_charter(City c)
 
 Player &Medic::fly_shuttle(City c)
 {
+    if (_city == c)
+    {
+        throw std::invalid_argument("Not allowed! already in " + get_city(_city));
+    }
     bool flag = _board.get_stations().contains(_city) && _board.get_stations().contains(c);
     if (flag && _board.get_cured().contains(_board.get_city_color(c)))
     {
