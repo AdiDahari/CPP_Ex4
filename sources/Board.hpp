@@ -1,3 +1,11 @@
+/**
+ * Board for the Pandemic Game
+ * 
+ * C++ Course - Ariel University
+ * 4th Assignment
+ * 
+ * @author Adi Dahari
+ * */
 #pragma once
 #include <map>
 #include <set>
@@ -27,6 +35,7 @@ namespace pandemic
         void set_station(City c);
         void set_cured(Color c);
         void set_cubes(City c, int n);
+        friend std::ostream &operator<<(std::ostream &os, const Board &b);
         inline static std::map<City, std::set<City>> get_adj()
         {
             return _adj;
@@ -43,7 +52,6 @@ namespace pandemic
         {
             return _cured;
         };
-        friend std::ostream &operator<<(std::ostream &os, const Board &b);
     };
 
 }
